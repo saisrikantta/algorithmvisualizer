@@ -8,9 +8,9 @@ export function getMergeSortAnimations(array) {
 
 export function mergeSortHelper(array, start, end, auxillaryArray, animations) {
     if(start === end) return;
-    var mid = start + (end - start) / 2;
-    mergeSortHelper(array, start, mid, auxillaryArray, animations);
-    mergeSortHelper(array, mid + 1, end, auxillaryArray, animations);
+    var mid = Math.floor((start + end) / 2);
+    mergeSortHelper(auxillaryArray, start, mid, array, animations);
+    mergeSortHelper(auxillaryArray, mid + 1, end, array, animations);
     merge(array, start, mid, end, auxillaryArray, animations);
 }
 

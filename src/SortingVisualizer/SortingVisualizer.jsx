@@ -1,5 +1,6 @@
 import React from "react";
-import {getMergeSortAnimations} from '../SortingAlgorithms/sortingAlgorithms.js'
+import {getMergeSortAnimations} from '../SortingAlgorithms/MergeSort.js'
+import {getBubbleSortAnimations} from '../SortingAlgorithms/BubbleSort.js'
 import './SortingVisualizer.css'
 
 class SortingVisualizer extends React.Component
@@ -55,7 +56,7 @@ class SortingVisualizer extends React.Component
             {
                 setTimeout(() => {
                     const [barOneIdx, newHeight] = animations[i];
-                    const barOneStyle = arrayBars[i].style;
+                    const barOneStyle = arrayBars[barOneIdx].style;
                     barOneStyle.height = `${newHeight}px`;
                 }, i * 5);
             }
@@ -63,7 +64,33 @@ class SortingVisualizer extends React.Component
     }
 
     bubbleSort() {
-
+        const animations = getBubbleSortAnimations(this.state.array);
+        for(let i = 0; i < animations.length; i++)
+        {
+            const arrayBars = document.getElementsByClassName('array-bar');
+            const isColorChange = i % 3 !== 2;
+            if(isColorChange)
+            {
+                const [barOneIdx, barTwoIdx] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+                const color = i % 3 === 0 ? 'red' : 'turquoise';
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+                }, i * 5);
+            }
+            else
+            {
+                setTimeout(() => {
+                    const [barOneIdx, barTwoIdx, barOneHeight, barTwoHeight] = animations[i];
+                    const barOneStyle = arrayBars[barOneIdx].style;
+                    const barTwoStyle = arrayBars[barTwoIdx].style;
+                    barOneStyle.height = `${barOneHeight}px`;
+                    barTwoStyle.height = `${barTwoHeight}px`;
+                }, i * 5);
+            }
+        }
     }
 
     heapSort() {
