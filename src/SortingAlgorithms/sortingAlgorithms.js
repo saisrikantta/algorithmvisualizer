@@ -1,47 +1,52 @@
-export function merge(nums, start, end) 
+export function getMergeSortAnimations(array) {
+    const animations = [];
+    if(array.length <= 1) return array;
+    const auxillaryArray = array.slice();
+    mergeSortHelper(array, 0, array.length - 1, auxillaryArray, animations);
+    return animations;
+}
+
+export function mergeSortHelper(array, start, end, auxillaryArray, animations) {
+    if(start === end) return;
+    var mid = start + (end - start) / 2;
+    mergeSortHelper(array, start, mid, auxillaryArray, animations);
+    mergeSortHelper(array, mid + 1, end, auxillaryArray, animations);
+    merge(array, start, mid, end, auxillaryArray, animations);
+}
+
+export function merge(nums, start, mid, end, auxillaryArray, animations) 
 {
-    var mid = start + (end - start) / 2, x = start;
-    var length1 = mid - start + 1, length2 = end - mid;
-    var array1 = [], array2 = [];
-    const animations = []
-    for(let i = 0; i < length1; i++)
+    let k = start;
+    let i = start;
+    let j = mid + 1;
+    while(i <= mid && j <= end)
     {
-        array1.push(nums[x++]);
-    }
-    for(let j = 0; j < length2; j++)
-    {
-        array2.push(nums[x++]);
-    }
-    var i = 0, j = 0;
-    x = start;
-    while(i < length1 && j < length2)
-    {
-        if(array1[i] < array2[j])
+        animations.push([i, j]);
+        animations.push([i, j]);
+        if(auxillaryArray[i] < auxillaryArray[j])
         {
-            nums[x++] = array1[i++];
+            animations.push([k, auxillaryArray[i]]);
+            nums[k++] = auxillaryArray[i++];
         }
-        if(array2[j] < array1[i])
+        else
         {
-            nums[x++] = array1[j++];
+            animations.push([k, auxillaryArray[j]]);
+            nums[k++] = auxillaryArray[j++];
         }
     }
-    while(i < length1)
+    while (i <= mid) 
     {
-        nums[x++] = array1[i];
-        i++;
+        animations.push([i, i]);
+        animations.push([i, i]);
+        animations.push([k, auxillaryArray[i]]);
+        nums[k++] = auxillaryArray[i++];
     }
-    while(j < length2)
+    while(j <= end) 
     {
-        nums[x++] = array2[j];
-        j++;
+        animations.push([j, j]);
+        animations.push([j, j]);
+        animations.push([k, auxillaryArray[j]]);
+        nums[k++] = auxillaryArray[j++];
     }
 }
 
-export function mergeSort(array, l, r) {
-    const animations = [];
-    if(l >= r) return;
-    var mid = l + (r - l) / 2;
-    mergeSort(array, l, mid);
-    mergeSort(array, mid + 1, r);
-    merge(array, l, r);
-}

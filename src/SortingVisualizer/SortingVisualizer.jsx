@@ -1,4 +1,5 @@
 import React from "react";
+import {getMergeSortAnimations} from '../SortingAlgorithms/sortingAlgorithms.js'
 import './SortingVisualizer.css'
 
 class SortingVisualizer extends React.Component
@@ -32,8 +33,33 @@ class SortingVisualizer extends React.Component
 
     } 
 
-    mergeSort() {
-        
+    mergeSort() 
+    {
+        const animations = getMergeSortAnimations(this.state.array);
+        for(let i = 0; i < animations.length; i++)
+        {
+            const arrayBars = document.getElementsByClassName('array-bar');
+            const isColorChange = i % 3 !== 2;
+            if(isColorChange)
+            {
+                const [barOneIdx, barTwoIdx] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+                const color = i % 3 === 0 ? 'red' : 'turquoise';
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+                }, i * 5);
+            }
+            else
+            {
+                setTimeout(() => {
+                    const [barOneIdx, newHeight] = animations[i];
+                    const barOneStyle = arrayBars[i].style;
+                    barOneStyle.height = `${newHeight}px`;
+                }, i * 5);
+            }
+        }
     }
 
     bubbleSort() {
