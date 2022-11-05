@@ -10,6 +10,7 @@ class SortingVisualizer extends React.Component
             array: []
         };
     }
+    
 
     componentDidMount() { //Called when the component first mounts.
         this.resetArray();
@@ -29,10 +30,10 @@ class SortingVisualizer extends React.Component
 
     quickSort() {
 
-    }
+    } 
 
     mergeSort() {
-
+        
     }
 
     bubbleSort() {
@@ -63,7 +64,6 @@ class SortingVisualizer extends React.Component
             </div>
         )
     }
-
 }
 
 export default SortingVisualizer
