@@ -1,13 +1,13 @@
 export function getHeapSortAnimations(array) {
-    const animations = [];
+    var animations = [];
     if(array.length <= 1) {
-        return animations;
+        return array;
     }
-    HeapSort(array);
+    HeapSort(array, animations);
     return animations;
 }
 
-export function maxHeapify(array, i, n)
+export function maxHeapify(array, i, n, animations)
 {
     var leftChild = 2 * i + 1;
     var rightChild = 2 * i + 2;
@@ -26,13 +26,13 @@ export function maxHeapify(array, i, n)
     }
     animations.push([i, greatest]);
     animations.push([i, greatest]);
-    if(greatest != i)
+    if(greatest !== i)
     {
         animations.push([i, greatest, array[greatest], array[i]]);
         var temp = array[greatest];
         array[greatest] = array[i];
         array[i] = temp;
-        maxHeapify(array, greatest, n);
+        maxHeapify(array, greatest, n, animations);
     }
     else
     {
@@ -40,24 +40,24 @@ export function maxHeapify(array, i, n)
     }
 }
 
-export function buildHeap(array)
+export function buildHeap(array, animations)
 {
     var n = array.length;
     var index = n / 2 - 1;
     for(let i = index; i >= 0; i--)
     {
-        maxHeapify(array, i, n);
+        maxHeapify(array, i, n, animations);
     }
 }
 
-export function HeapSort(array)
+export function HeapSort(array, animations)
 {
     var n = array.length;
     if(n === 1)
     {
         return;
     }
-    buildHeap(array);
+    buildHeap(array, animations);
     for(var i = 0; i < n - 1; i++)
     {
         animations.push([0, n - i - 1]);
@@ -66,6 +66,6 @@ export function HeapSort(array)
         var temp = array[n - i - 1];
         array[n - i - 1] = array[0];
         array[0] = temp;
-        maxHeapify(array, 0, n - i - 1);
+        maxHeapify(array, 0, n - i - 1, animations);
     }
 }
