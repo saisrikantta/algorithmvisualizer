@@ -2,25 +2,28 @@ export function getQuickSortAnimations(array) {
     const animations = [];
     if(array.length <= 1) return array;
     QuickSort(array, 0, array.length - 1, animations);
+    animations.forEach(element => {
+        console.log(element);
+    });
     return animations;
 }
 
 export function QuickSort(array, low, high, animations)
 {  
-    if(low <= high)
+    if(low >= high)
     {
         return;
     }
-    var pivot = partition(array, low, high, animations);
-    QuickSort(array, low, pivot - 1, animations);
-    QuickSort(array, pivot + 1, high, animations);
+    var pivotidx = partition(array, low, high, animations);
+    QuickSort(array, low, pivotidx - 1, animations);
+    QuickSort(array, pivotidx + 1, high, animations);
 }
 
 export function partition(array, low, high, animations)
 {
-    var pivot = arr[low];
+    var pivot = array[low];
     var count = 0;
-    for(var i = 0; i <= high; i++)
+    for(let i = low + 1; i <= high; i++) //count no. of elements lesser than pivot
     {
         if(array[i] <= pivot)
         {
@@ -31,11 +34,14 @@ export function partition(array, low, high, animations)
     animations.push([pivotIndex, low]);
     animations.push([pivotIndex, low]);
     animations.push([pivotIndex, low, array[low], array[pivotIndex]]);
-    swap(array[pivotIndex], array[low]);
+    //swap(array[pivotIndex], array[low]);
+    var temp = array[pivotIndex];
+    array[pivotIndex] = array[low];
+    array[low] = temp;
     var i = low, j = high;
     while(i < pivotIndex && j > pivotIndex)
     {
-        while(i < pivotIndex && array[i] < array[pivotIndex])
+        while(i < pivotIndex && array[i] <= array[pivotIndex])
         {
             i++;
         }
@@ -46,7 +52,10 @@ export function partition(array, low, high, animations)
         animations.push([i, j]);
         animations.push([i, j]);
         animations.push([i, j, array[j], array[i]]);
-        swap(array[i++], array[j--]);
+        //swap(array[i++], array[j--]);
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
     return pivotIndex;
 }

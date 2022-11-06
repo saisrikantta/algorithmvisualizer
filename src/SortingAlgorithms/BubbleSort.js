@@ -22,7 +22,7 @@ export function getBubbleSortAnimations(array)
                 animations.push([j, j + 1, array[j], array[j + 1]]);
             }
         }
-        if(comp == false)
+        if(comp === false)
         {
             break;
         }
