@@ -24,12 +24,19 @@ export function maxHeapify(array, i, n)
     {
         greatest = rightChild;
     }
+    animations.push([i, greatest]);
+    animations.push([i, greatest]);
     if(greatest != i)
     {
+        animations.push([i, greatest, array[greatest], array[i]]);
         var temp = array[greatest];
         array[greatest] = array[i];
         array[i] = temp;
         maxHeapify(array, greatest, n);
+    }
+    else
+    {
+        animations.push([i, greatest, array[i], array[greatest]]);
     }
 }
 
@@ -53,6 +60,9 @@ export function HeapSort(array)
     buildHeap(array);
     for(var i = 0; i < n - 1; i++)
     {
+        animations.push([0, n - i - 1]);
+        animations.push([0, n - i - 1]);
+        animations.push([0, n - i - 1, array[n - i - 1], array[0]]);
         var temp = array[n - i - 1];
         array[n - i - 1] = array[0];
         array[0] = temp;
