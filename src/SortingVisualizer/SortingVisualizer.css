@@ -1,6 +1,6 @@
 .container {
     position: absolute;
-    left: 50px
+    left: 50px;
 }
 
 .array-bar {
@@ -9,3 +9,4 @@
     display: inline-block;
     margin: 0 2px;
 }
+

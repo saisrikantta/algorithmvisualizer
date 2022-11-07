@@ -4,6 +4,8 @@ import {getBubbleSortAnimations} from '../SortingAlgorithms/BubbleSort.js'
 import {getQuickSortAnimations} from "../SortingAlgorithms/QuickSort.js";
 import {getHeapSortAnimations } from "../SortingAlgorithms/HeapSort.js";
 import './SortingVisualizer.css'
+import Timer from "./Timer"
+
 
 class SortingVisualizer extends React.Component
 {
@@ -150,7 +152,6 @@ class SortingVisualizer extends React.Component
             }
         }
     }
-    
     render() { //returns Component JSX to App.js
         const {array} =  this.state;
         return (
@@ -167,6 +168,7 @@ class SortingVisualizer extends React.Component
             <button onClick={() => this.mergeSort()}>Merge Sort</button>
             <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
             <button onClick={() => this.heapSort()}>Heap Sort</button>
+            <Timer></Timer>
             </div>
         )
     }

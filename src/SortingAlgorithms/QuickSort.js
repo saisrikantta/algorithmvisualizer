@@ -2,9 +2,6 @@ export function getQuickSortAnimations(array) {
     const animations = [];
     if(array.length <= 1) return array;
     QuickSort(array, 0, array.length - 1, animations);
-    animations.forEach(element => {
-        console.log(element);
-    });
     return animations;
 }
 
@@ -34,7 +31,6 @@ export function partition(array, low, high, animations)
     animations.push([pivotIndex, low]);
     animations.push([pivotIndex, low]);
     animations.push([pivotIndex, low, array[low], array[pivotIndex]]);
-    //swap(array[pivotIndex], array[low]);
     var temp = array[pivotIndex];
     array[pivotIndex] = array[low];
     array[low] = temp;
@@ -52,7 +48,6 @@ export function partition(array, low, high, animations)
         animations.push([i, j]);
         animations.push([i, j]);
         animations.push([i, j, array[j], array[i]]);
-        //swap(array[i++], array[j--]);
         temp = array[i];
         array[i] = array[j];
         array[j] = temp;
